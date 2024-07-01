@@ -1,24 +1,8 @@
-import os
 import random
-import time
 
+from screen_manager import ScreenManager
 
-def clear_screen(seconds):
-    if isinstance(seconds, (int, float)):
-        time.sleep(seconds)
-        os.system("cls" if os.name == "nt" else "clear")
-    elif seconds == "x":
-        os.system("cls" if os.name == "nt" else "clear")
-    else:
-        print("\033[31mInvalid input for clear_screen\033[0m")
-
-def hide_cursor():
-    print("\033[?25l")
-
-
-def show_cursor():
-    print("\033[?25h")
-
+sm = ScreenManager()
 
 class PinGenerator:
     def __init__(self, number_of_digits):
@@ -35,37 +19,56 @@ class PinGenerator:
         '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=',
         '+', '[', ']', '{', '}', '\\', '|', ';', ':', '"', "'", ',', '.', 
         '<', '>', '/', '?', '~', '`']
+        
+        colors = [sm.black, sm.red, sm.green, sm.yellow, sm.blue,
+        sm.purple, sm.cyan, sm.white, sm.brightBlack, sm.brightRed,
+        sm.brightGreen, sm.brightYellow, sm.brightBlue, sm.brightPurple, 
+        sm.brightCyan, sm.brightWhite, sm.blackDark, sm.redDark, 
+        sm.greenDark, sm.yellowDark, sm.blueDark, sm.purpleDark, 
+        sm.cyanDark, sm.whiteDark]
+        
         counter = 0
         self.pin = ""
         while counter < self.number_of_digits:
             random_element = random.choice(combination)
-            self.pin += random_element
+            random_color = random.choice(colors)
+            random_mixed = random_color + random_element + sm.colorLimit
+            self.pin += random_mixed
             counter += 1
-        
 
 while True: 
     try: 
-        number_of_digits = int(input("How many digit pin: "))
-        clear_screen("x")
+        sm.bold_text()
+        sm.show_cursor()
+        number_of_digits = int(input(f"{sm.blueDark}How many digit pin "
+        f"{sm.colorLimit}: "))
+        sm.cls()
         pg = PinGenerator(number_of_digits)
         while True:   
             pg.pin_process()
-            print(f"PIN: {pg.pin}")
+            print(f"{sm.underlineText}PIN:{sm.underlineLimit} {sm.boldText}{pg.pin}")
             print()
-            hide_cursor()
-            user_options = input("Click 'Enter' to "
-            "regenerate or type 'Space/Enter' to choose new pin digits")
+            sm.hide_cursor()
+            print(f"{sm.purpleDark}Click {sm.colorLimit}'"
+            f"{sm.brightYellow}Enter{sm.colorLimit}'{sm.colorLimit} "
+            f"{sm.purpleDark}to regenerate or\nClick{sm.colorLimit} "
+            f"'{sm.brightGreen}Space Bar{sm.colorLimit}'{sm.colorLimit} Then "
+            f"{sm.purpleDark}Click{sm.colorLimit} {sm.colorLimit}'{sm.brightCyan}"
+            f"Enter{sm.colorLimit}'{sm.purpleDark} to choose new pin digits "
+            f"{sm.colorLimit}")
+            user_options = input()
             if user_options == "":
-                clear_screen("x")
+                sm.cls()
             elif user_options == " ":
-                clear_screen("x")
-                show_cursor()
+                sm.cls()
+                sm.show_cursor()
                 break
             else:
-                clear_screen("x")
+                sm.cls()
                 print("\033[31m Please choose from one of the options!\033[0m")
-                clear_screen(1)
-
+                sm.delay_cls(1)
+    
     except ValueError:
+        sm.hide_cursor()
         print("\033[31mInvalid number! Try Again!\033[0m")
-        clear_screen(0.5)
+        sm.delay_cls(0.5)
