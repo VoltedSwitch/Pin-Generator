@@ -11,23 +11,28 @@ class PinGenerator:
 
 
     def pin_process(self):
-        mixed_combination = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
-                             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                             'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 
-                             'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                             'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-                             'y', 'z','!', '@', '#', '$', '%', '^', '&', '*', 
-                             '(', ')', '-', '_', '=','+', '[', ']', '{', '}',
-                             '\\', '|', ';', ':', '"', "'", ',', '.',  '<', 
-                             '>', '/', '?', '~', '`']
+        mixed_combination = [
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+             'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 
+             'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+             'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+             'y', 'z','!', '@', '#', '$', '%', '^', '&', '*', 
+             '(', ')', '-', '_', '=','+', '[', ']', '{', '}',
+             '\\', '|', ';', ':', '"', "'", ',', '.',  '<', 
+             '>', '/', '?', '~', '`'
+        ]
 
-        colors = [sm.black, sm.red, sm.green, sm.yellow, sm.blue,
-        sm.purple, sm.cyan, sm.white, sm.brightBlack, sm.brightRed,
-        sm.brightGreen, sm.brightYellow, sm.brightBlue, sm.brightPurple, 
-        sm.brightCyan, sm.brightWhite, sm.blackDark, sm.redDark, 
-        sm.greenDark, sm.yellowDark, sm.blueDark, sm.purpleDark, 
-        sm.cyanDark, sm.whiteDark]
+        colors = [
+            sm.black, sm.red, sm.green, sm.yellow, sm.blue,
+            sm.purple, sm.cyan, sm.white, sm.brightBlack, sm.brightRed,
+            sm.brightGreen, sm.brightYellow, sm.brightBlue, sm.brightPurple, 
+            sm.brightCyan, sm.brightWhite, sm.blackDark, sm.redDark, 
+            sm.greenDark, sm.yellowDark, sm.blueDark, sm.purpleDark, 
+            sm.cyanDark, sm.whiteDark
+        ]
+        
         if self.pin_complexity_level == "3":
             counter = 0
             self.pin = ""
@@ -39,6 +44,7 @@ class PinGenerator:
                 self.pin += random_mixed
         
                 counter += 1
+                
         elif self.pin_complexity_level == "2":
             number_counter = 0 
             upper_counter = 0
@@ -73,11 +79,13 @@ class PinGenerator:
                 random_color = random.choice(colors)
                 
                 random_mixed = random_color + random_element + sm.colorLimit
-                self.pin += random_mixed
-                if (number_counter == 2 and 
+                self.pin += random_mixed       
+                if (
+                    number_counter == 2 and 
                     upper_counter == 2 and 
                     lower_counter == 2 and
-                    special_counter == 2):
+                    special_counter == 2
+                ):
                     break
 
         else:
@@ -114,11 +122,13 @@ class PinGenerator:
                 random_color = random.choice(colors)
 
                 random_mixed = random_color + random_element + sm.colorLimit
-                self.pin += random_mixed
-                if (number_counter == 1 and 
+                self.pin += random_mixed 
+                if (
+                    number_counter == 1 and 
                     upper_counter == 1 and 
                     lower_counter == 1 and
-                    special_counter == 1):
+                    special_counter == 1
+                ):
                     break
 
 while True: 
@@ -135,9 +145,11 @@ while True:
                 f"{sm.colorLimit}), ({sm.brightCyan}2{sm.colorLimit}) or" 
                 f" ({sm.brightGreen}3{sm.colorLimit}): "
                 ).strip()
-            if (pin_complexity_level == "1" or
-                  pin_complexity_level == "2" or
-                  pin_complexity_level == "3"):
+            if (
+                pin_complexity_level == "1" or
+                pin_complexity_level == "2" or
+                pin_complexity_level == "3"
+            ):
                 break
             else:
                 sm.cls()
